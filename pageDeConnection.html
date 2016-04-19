@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<title>La TodoList, le retour</title>
+	<meta http-equiv="Content-Type" content="text/html;utf-8" />
+	<meta name="viewport" content="width=device-width"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta name="viewport" content="width=device-width, minimum-scale=0.25"/>
+	<meta name="viewport" content="width=device-width, maximum-scale=5.0"/>
+	<meta name="viewport" content="width=device-width, user-scalable=no"/>
+	<meta name="viewport" content="width=device-width, target-densitydpi=device-dpi"/>
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+	<link rel="stylesheet" type="text/css" href="IndiaRose.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script type="text/javascript" src="pageDeConnection.js"></script> 
+</head>
+<body>
+<!--<nav id="language">
+  <ul>
+    <li class="Language">
+    <li class="dropdown">
+    <a href="#" class="dropbtn">Language</a>
+    <div class="dropdown-content">
+     	<a href="pageDeConnection-en.html" hreflang="en"><abbr lang="en" title="English">English</abbr></a>
+		<a href="pageDeConnection-fr.html" hreflang="fr"><abbr lang="fr" title="Francais">Francais</abbr></a>
+    </div>
+  </li>
+  </li>
+  </ul>
+</nav>-->
+<center><img src="icon_0.png"/></center>
+<div ng-app="myApp"> 
+	<div ng-controller="myCtrl">
+		<h1><center><b>S'identifer</b></center></h1>
+		<form class="w3-container" name="formulaire1">
+			<label class="w3-label w3-text-blue">
+				<b>Utilisateur</b>
+			</label>
+			<input name="login1" type="text" class="w3-input w3-border w3-round w3-hover-grey" ng-model="login" required>
+			<label class="w3-label w3-text-blue">
+				<b>Mot de passe</b>
+			</label>
+			<input name="password1" type="text" class="w3-input w3-border w3-round w3-hover-grey" ng-model="password" required>
+			<br/>
+			<input type="checkbox" ng-model="checkbox" >				
+			<label class="w3-label w3-text-black">
+				<b>Se souvenir de moi</b>
+			</label>
+			<br/><br/>
+			<button ng-click="reset()" style="width:49%" class="w3-btn w3-ripple w3-red w3-btn w3-round-large">effacer</button>
+			<button  ng-disabled="formulaire1.login1.$invalid || formulaire1.password1.$invalid " ng-click="sendPost(login,password)" style="width:49%" class="w3-btn w3-ripple w3-green w3-btn w3-round-large">connection</button>
+		</form>
+	</div> 
+	<div ng-controller="myCtrl2">
+		<h1><center><b>S'enregistrer</b></center></h1>
+		<form class="w3-container" name="formulaire2">
+			<label class="w3-label w3-text-blue">
+				<b>Utilisateur</b>
+			</label>
+			<input name="" ="login2" type="text" class="w3-input w3-border w3-round w3-hover-grey" ng-model="login" required>
+			<label class="w3-label w3-text-blue">
+				<b>Mot de passe</b>
+			</label>
+			<input name="password2" type="text" class="w3-input w3-border w3-round w3-hover-grey" ng-model="password" required>
+
+			<label class="w3-label w3-text-blue">
+				<b>Email</b>
+			</label>
+			<input type="email" name="email" class="w3-input w3-border w3-round w3-hover-grey" ng-model="email" required>
+			<span style="color:red" ng-show="formulaire2.email.$dirty && formulaire2.email.$invalid">
+				<span ng-show="formulaire2.email.$error.required">Email requis</span>
+				<span ng-show="formulaire2.email.$error.email">Invalide email</span>
+			</span>
+
+			<br/>
+			<button  ng-click="reset()" style="width:49%" class="w3-btn w3-ripple w3-red w3-btn w3-round-large">effacer</button>
+			<button ng-disabled="formulaire2.login2.$invalid || formulaire2.password2.$invalid || formulaire2.email.$invalid" ng-click="save(login,password,e)" style="width:49%" class="w3-btn w3-ripple w3-green w3-btn w3-round-large">creer</button>
+		</form>
+	</div>
+</div>
+<footer>
+	<!--	<iframe src="http://www.facebook.com/plugins/like.php?href=http://www.example.com/page.html&layout=box_count&show_faces=true&width=65&action=like&font=arial&colorscheme=light&height=65" 
+	scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:65px; height:65px; margin-top:3px;" allowTransparency="true"></iframe> -->
+</footer>
+</body>
+</body>
+</html>

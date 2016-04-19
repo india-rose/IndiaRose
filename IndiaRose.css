@@ -1,0 +1,129 @@
+body {
+	background-color: white ;
+	min-width: 320px;  /*tel*/
+	/*	color : red;*/
+}
+
+h1 {
+	color: #000000 ;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	background-color: #f1f1f1;
+}
+
+li a {
+	background-color: grey;
+	display: block;
+	color: #000;
+	padding: 8px 0 8px 16px;
+	text-decoration: none;
+}
+
+/* Change the link color on hover */
+li a:hover {
+	background-color: #555;
+	color: white;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	/*	display : table; */
+	min-height: 100%;
+	margin: 0;
+	padding: 0;
+	margin-left:10px;
+	margin-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+body {
+	position: relative;
+}
+
+footer {
+	margin-left:10px;
+	margin-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	display : table-row;
+	position: absolute; 
+	bottom: 0;
+	left: 0; 
+	right: 0
+}
+
+/* button cote a cote avec un petit espace */
+button {   
+	display: inline-block;
+}
+
+input.ng-invalid {
+	background-color:pink;
+}
+input.ng-valid {
+	background-color:lightgreen;
+}
+
+img, table, td, blockquote, code, pre, textarea, input, iframe, object, embed, video {  /*tel*/
+	max‐width: 100%;
+}
+
+* {-moz-box-sizing: border-box; box-sizing: border-box;}
+
+
+
+
+
+
+
+
+
+
+
+
+li a, .dropbtn {
+	display: inline-block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+	background-color: red;
+}
+
+li.dropdown {
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
