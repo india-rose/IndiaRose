@@ -1,13 +1,13 @@
 var app = angular.module('myApp', []);
 
-sessionStorage.login='';
-sessionStorage.password='';
-//sessionStorage.id='';
-//sessionStorage.title='';
-//sessionStorage.description='';
+//localStorage.login='';
+//localStorage.password='';
+localStorage.loginTMP='';
+localStorage.passwordTMP='';
+
 
 //se connecter
-app.controller('myCtrl', function($scope,$http) {
+app.controller('connection', function($scope,$http) {
 	if(localStorage.checkbox=="true"){
 		$scope.checkbox=true;
 	}else {
@@ -30,11 +30,11 @@ app.controller('myCtrl', function($scope,$http) {
 			champ2=localStorage.password;
 		};
 		var json = {
-			"Login" : champ1,
-			"Password" : champ2
+			"login": champ1, 
+			"password":champ2
 		};
 		return $http.post("http://indiarose.azurewebsites.net/api/v1/users/login", json).success(function(data, status) {
-			if(data.Ok==true){
+			if(data.HasError==false){
 				if($scope.checkbox==true){
 					localStorage.checkbox=true;
 					localStorage.login=champ1;
@@ -44,23 +44,22 @@ app.controller('myCtrl', function($scope,$http) {
 					localStorage.login='';
 					localStorage.password='';
 				};
-				sessionStorage.login = json.login;
-				sessionStorage.password=json.password;
-				alert(data);
-			//	window.location='todoliste.html';
-		}else{
-			alert(data.Error);
-		};
-		return data;
-	}).error(function(){
-		alert("la page est temporairement indisponible");
-		return null ;
-	});
-};
+				localStorage.loginTMP=champ1;
+				localStorage.passwordTMP=champ2;
+				window.location='menu.html';
+			}else{
+				alert(data.ErrorMessage);
+			};
+			return data;
+		}).error(function(){
+			alert("mot de passe ou identifiant incorect");
+			return null ;
+		});
+	};
 });
 
 //s enregistrer
-app.controller('myCtrl2', function($scope,$http) {
+app.controller('enregistrer', function($scope,$http) {
 	$scope.login='';
 	$scope.password='';
 	$scope.email = '';
@@ -71,29 +70,27 @@ app.controller('myCtrl2', function($scope,$http) {
 	};
 	$scope.save = function(champ1,champ2,champ3){
 		localStorage.password==false;
-		champ2= SHA1(champ2).toString();
+		champ2= sha256_digest(champ2).toString();
 		var json = {
-			"Login": champ1,
-			"Email" : champ3,
-			"Password": champ2
+			"login": champ1,
+			"email" : champ2,
+			"password": champ3
 		};
 		return $http.post("http://indiarose.azurewebsites.net/api/v1/users/register", json).success(function(data, status) {
-			if(data.Ok==true){
-				sessionStorage.login = json.login;
-				sessionStorage.password=json.password;
-			//	window.location='todoliste.html';
-			alert(data);
-		}else{
-			alert(data.Error);
-		};
-		return data;
-	}).error(function(){
-		alert("la page est temporairement indisponible");
-		return null ;
-	});
-};
+			if(data.HasError==false){
+				localStorage.loginTMP=champ1;
+				localStorage.passwordTMP=champ2;
+				window.location='menu.html';
+			}else{
+				alert(data.ErrorMessage);
+			};
+			return data;
+		}).error(function(){
+			alert("utilisateur ou adresse mail deja utilisee");
+			return null ;
+		});
+	};
 });
-
 
 
 /* SHA256 logical functions */

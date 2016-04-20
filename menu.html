@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<title>La TodoList, le retour</title>
+	<meta http-equiv="Content-Type" content="text/html;utf-8" />
+	<meta name="viewport" content="width=device-width"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta name="viewport" content="width=device-width, minimum-scale=0.25"/>
+	<meta name="viewport" content="width=device-width, maximum-scale=5.0"/>
+	<meta name="viewport" content="width=device-width, user-scalable=no"/>
+	<meta name="viewport" content="width=device-width, target-densitydpi=device-dpi"/>
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+	<link rel="stylesheet" type="text/css" href="IndiaRose.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script type="text/javascript" src="menu.js"></script> 
+
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> 
+
+
+</head>
+<body>
+
+	<hader>
+		<center><img src="icon_0.png"/></center>
+	</hader>
+
+
+	<div2 ng-app="myApp"> 
+		<div2 ng-controller="param">
+			<center>
+				<input type="image" src="gestion.png" alt="Submit"  class="w3-btn w3-ripple w3-blue" width="20%" height="20%" ng-click="parametresf()">
+				<input type="image" src="engrenage.png" alt="Submit"  class="w3-btn w3-ripple w3-green" width="20%" height="20%" ng-click="collectionf()">
+			</center>
+			<div2 ng-hide="!parametres">
+				<center><h2><b>Parametres de l'application</b></h2></center>
+				<div ng-hide="data1">Vous devez avoir un p&eacute;riph&eacute;rique avec l'application India Rose dessus pour pouvoir acceder &agrave; cette partie du site.
+				</div>
+				<div2 ng-hide="!data1">
+					<p>choisissez votre peripherique :</p>
+					<div2 class="styled-select">
+						<select ng-model="device">
+							<option ng-repeat="x in dat" value="{{x.Name}}" >{{x.Name}}</option>
+						</select>
+					</div2>
+					<div2 ng-hide="device==null">
+						<div class="btn-group-vertical">
+							<button type="button" class="btn btn-primary btn-lg btn-block">Propri&eacute;t&eacute;s couleur de fond</button>
+							<button type="button" class="btn btn-default btn-lg btn-block">Propri&eacute;t&eacute;s des indiagrames</button>
+							<button type="button" class="btn btn-primary btn-lg btn-block">Glisser-d&eacuteposer</button>
+							<button type="button" class="btn btn-default btn-lg btn-block" ng-click="lectureCatf()">Lecture des cat&eacute;gories</button>
+							<div ng-hide="!lectureCat">
+								<h4><b>Lire le son associ&eacute; &agrave; la cat&eacute;gorie quand elle est s&eacute;lectionn&eacute;e</b></h4>
+								<p>Si vous activez cette option, les cat&eacute;gories seront lues lors de leur s&eacute;lection</p>
+								<input type="checkbox" name="Activer" ><b>Activer</b><br/>
+								<input type="checkbox" name="Descativer" ><b>D&eacute;sactiver</b>
+
+							</div>
+							<button type="button" class="btn btn-primary btn-lg btn-block" ng-click="lectureMotsf()">D&eacute;lai de lecture entre les mots</button>
+							<div ng-hide="!lectureMots">
+								<h4><b>D&eacute;lai entre deux mots</b></h4>
+								<p>Modifier le d&eacute;lai entre deux mots d'une phrase</p>
+								<input type="range" name="points" min="0" max="10" step="0.5" ng-model="slide">
+								{{slide}} secondes
+							</div>
+							<button type="button" class="btn btn-default btn-lg btn-block" ng-click="reinitialiserf()">R&eacute;initialiser les param&eacute;tres</button>
+							<div ng-hide="!reinitialiser">
+								<center><h4><b>Voulez-vous r&eacute; r&eacute;initialiser les param&egrave;tres ? (votre collection sera conserv&eacute;e) ?</b></h4></center>
+								<div class="btn-group">
+									<button  ng-click="" style="width:49%" class="w3-btn w3-ripple w3-red w3-btn w3-round-large">Annuler</button>
+									<button  ng-click="" style="width:49%" class="w3-btn w3-ripple w3-green w3-btn w3-round-large">Ok</button>
+								</div>
+							</div>
+						</div>
+
+					</div2>
+				</div2>
+			</div2> 
+			<div2 ng-hide="!collection"><center><h2><b>Gestion de la collection</b></h2></center>
+
+
+
+			</div2>
+		</div2>
+	</div2>
+
+</body>
+</html>
