@@ -79,7 +79,9 @@ img, table, td, blockquote, code, pre, textarea, input, iframe, object, embed, v
 
 * {-moz-box-sizing: border-box; box-sizing: border-box;}
 
-
+img.floatR{
+	float:right;
+}
 
 
 
@@ -158,6 +160,7 @@ div {
 
 
 /*slide bar*/
+/*
 input[type=range] {
 	-webkit-appearance: none;
 	margin: 18px 0;
@@ -249,12 +252,12 @@ input[type=range]:focus::-ms-fill-upper {
 
 
 
+*/
 
-
-
+/*
 .styled-select select {
 	background: grey;
-	width: 25%;
+	width: 100%;
 	padding: 5%;
 	font-size: 16%
 	line-height: 1;
@@ -262,4 +265,4 @@ input[type=range]:focus::-ms-fill-upper {
 	border-radius: 0;
 	height: 14%;
 
-}
+}*/

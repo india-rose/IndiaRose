@@ -1,7 +1,7 @@
 var app = angular.module('myApp', []);
 
-//localStorage.login='';
-//localStorage.password='';
+var API='http://indiarose.azurewebsites.net/';
+
 localStorage.loginTMP='';
 localStorage.passwordTMP='';
 
@@ -33,7 +33,7 @@ app.controller('connection', function($scope,$http) {
 			"login": champ1, 
 			"password":champ2
 		};
-		return $http.post("http://indiarose.azurewebsites.net/api/v1/users/login", json).success(function(data, status) {
+		$http.post(API+"/api/v1/users/login", json).success(function(data, status) {
 			if(data.HasError==false){
 				if($scope.checkbox==true){
 					localStorage.checkbox=true;
@@ -50,10 +50,8 @@ app.controller('connection', function($scope,$http) {
 			}else{
 				alert(data.ErrorMessage);
 			};
-			return data;
-		}).error(function(){
-			alert("mot de passe ou identifiant incorect");
-			return null ;
+		}).error(function(status){
+			alert(status.Message);
 		});
 	};
 });
@@ -76,7 +74,7 @@ app.controller('enregistrer', function($scope,$http) {
 			"email" : champ2,
 			"password": champ3
 		};
-		return $http.post("http://indiarose.azurewebsites.net/api/v1/users/register", json).success(function(data, status) {
+		$http.post(API+"/api/v1/users/register", json).success(function(data, status) {
 			if(data.HasError==false){
 				localStorage.loginTMP=champ1;
 				localStorage.passwordTMP=champ2;
@@ -84,10 +82,8 @@ app.controller('enregistrer', function($scope,$http) {
 			}else{
 				alert(data.ErrorMessage);
 			};
-			return data;
-		}).error(function(){
-			alert("utilisateur ou adresse mail deja utilisee");
-			return null ;
+		}).error(function(status){
+			alert(status.Message);
 		});
 	};
 });
