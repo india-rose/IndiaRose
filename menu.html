@@ -31,63 +31,66 @@
 			<div2 ng-hide="!parametres">
 				<center><h2><b>Param&egrave;tres de l'application</b></h2></center>
 				<div ng-hide="data1">
-					<center>Vous devez avoir un p&eacute;riph&eacute;rique avec l'application India Rose dessus pour pouvoir acceder &agrave; cette partie du site.
-						<center>
-						</div>
-						<div2 ng-hide="!data1">
-							<center>
-								<p>choisissez votre p&eacute;riph&eacute;rique :</p>
-								<div2 class="styled-select" >
-									<select ng-model="device" ng-Change="version()">
-										<option ng-repeat="x in dat" value="{{x.Name}}" >{{x.Name}}</option>
-									</select>
-								</div2>
-							</center>
+					<center>
+						Vous devez avoir un p&eacute;riph&eacute;rique avec l'application India Rose dessus pour pouvoir acceder &agrave; cette partie du site.
+					</center>
+				</div>
+				<div2 ng-hide="!data1">
+					<center>
+						<p>choisissez votre p&eacute;riph&eacute;rique :</p>
+						<div2 class="styled-select" >
+							<select ng-model="device" ng-Change="version()">
+								<option ng-repeat="x in dat" value="{{x.Name}}" >{{x.Name}}</option>
+							</select>
+						</div2>
+					</center>
+					<br/>
+					<div2 ng-hide="device==null">
+						<form class="w3-container" name="formulaire1">
+							<label class="w3-label w3-text-blue">
+								<b>Changer le nom du p&eacute;riph&eacute;rique</b>
+							</label>
+							<input name="nomD1" type="text" class="w3-input w3-border w3-round w3-hover-grey" ng-model="nomD" required>
+							<button  ng-disabled="formulaire1.nomD1.$invalid" ng-click="changeNomD(nomD)" style="width:100%" class="w3-btn w3-ripple w3-green w3-btn w3-round-large">Changer</button>
 							<br/>
-							<div2 ng-hide="device==null">
-								<form class="w3-container" name="formulaire1">
-									<label class="w3-label w3-text-blue">
-										<b>Changer le nom du p&eacute;riph&eacute;rique</b>
-									</label>
-									<input name="nomD1" type="text" class="w3-input w3-border w3-round w3-hover-grey" ng-model="nomD" required>
-									<button  ng-disabled="formulaire1.nomD1.$invalid" ng-click="changeNomD(nomD)" style="width:100%" class="w3-btn w3-ripple w3-green w3-btn w3-round-large">Changer</button>
-									<br/>
-									<br/>
-								</form>
-								<center>
-									<p>choisissez la version :</p>
-									<div2 class="styled-select">
-										<select ng-model="device2" ng-change="afficherVersion()">
-											<option ng-repeat="x in dat2" value="{{x.Version}}" >{{x.Version}}</option>
-										</select>
-									</div2>
-									<div ng-hide="device2==null">
-										<b>Date : </b>	{{deviceInfo.Date | date:'yyyy/MM/dd HH:mm:ss'}}
-									</div>
-								</center>
+							<br/>
+						</form>
+						<center>
+							<p>choisissez la version :</p>
+							<div2 class="styled-select">
+								<select ng-model="device2" ng-change="afficherVersion()">
+									<option ng-repeat="x in dat2" value="{{x.Version}}" >{{x.Version}}</option>
+								</select>
 							</div2>
-							<div2 ng-hide="device2==null">
-								
-								<div class="btn-group-vertical">
-									<button type="button" class="btn btn-primary btn-lg btn-block" ng-click="settings(); prorietef()">Propri&eacute;t&eacute;s couleur de fond</button>
-									<div ng-hide="!propriete">
+							<div ng-hide="device2==null">
+								<b>Date : </b>	{{deviceInfo.Date | date:'yyyy/MM/dd HH:mm:ss'}}
+							</div>
+						</center>
+					</div2>
+					<div2 ng-hide="device2==null">
 
-										<img type="image" src="transparent.png"  width="40%" height="76.6px" class="floatR" ng-style=" {'background-color':'#'+deviceSettings.TopBackgroundColor}"/>
-										<img type="image"  src="bkgTablettes.png"  width="40%" class="floatR" ng-style=" {'background-color':'#'+deviceSettings.BottomBackgroundColor}" >
+						<div class="btn-group-vertical">
+							<button type="button" class="btn btn-primary btn-lg btn-block" ng-click="settings(); prorietef()">Propri&eacute;t&eacute;s couleur de fond</button>
+							<div ng-hide="!propriete" style="width:100%; height:300px">
+								<label class="w3-label w3-text-blue">
+									<b>Hauteur de la zone du haut (s&eacute;lection des indiagrams) :</b>
+								</label>
+								{{deviceSettings.SelectionAreaHeight}}&nbsp;%
+								<br/>
+								<br/>
 
+								<center>
+									<div2  style="position:absolute; width:40%; height:60%; z-index:1">
+										<img type="image" src="transparent.png"  width="100%" height="100%" ng-style=" {'background-color':'#'+deviceSettings.BottomBackgroundColor}"/>
+									</div2>
+									<div2  style="position:absolute; width:40%; height:60%; z-index:2">
+									<img type="image" src="transparent.png"  width="100%" height="{{deviceSettings.SelectionAreaHeight}}%" ng-style=" {'background-color':'#'+deviceSettings.TopBackgroundColor}"/>
+									</div2>
+									<div2  style="position:absolute; width:40%;  height:60%; z-index:3">
+										<img type="image"  src="bkgTablettes.png"  width="100%" height="100%" >
+									</div2>
+								</center>
 
-										Hauteur de la zone du haut (s&eacute;lection des indiagrams) :<br/>
-										<center><b>{{deviceSettings.SelectionAreaHeight}}&nbsp;%</b></center>
-
-
-										<!--<pre>myStyle={{myStyle}}</pre>-->
-										<!--<span ng-style="myStyle">Sample Text</span>-->
-
-
-										<!--<div2 ng-style="myStyle" width="20%" height="20%" >donc</div2>-->
-								<!--<input type="button" value="set background" ng-click="myStyle={'background-color':'#'+deviceSettings.TopBackgroundColor}">
-								<input type="button" value="set background" ng-click="myStyle={'color':'#'+deviceSettings.BottomBackgroundColor}">
-								<input type="button" value="set background" ng-click="myStyle={'color':'#'+deviceSettings.TextColor}">-->
 							</div>
 							<button type="button" class="btn btn-primary btn-lg btn-block" ng-click="indiagramef()">Propri&eacute;t&eacute;s des indiagrames</button>
 							<div ng-hide="!indiagrame">
@@ -157,19 +160,7 @@
 									<button  ng-click="" style="width:49%" class="w3-btn w3-ripple w3-green w3-btn w3-round-large">Ok</button>
 								</div>
 							</div>
-							<!--<form class="w3-container" name="formulaire2">
-								<center>
-									<p>revenir &agrave; la version : </p>
-									<div2 class="styled-select">
-										<select ng-model="device3" name="device3" required>
-											<option ng-repeat="x in dat2" value="{{x.Version}}" >{{x.Version}}</option>
-										</select>
-									</div2>
-									<b>Date : </b>	{{deviceInfo.Date | date:'yyyy/MM/dd HH:mm:ss'}}
-								</center>
-								<br/>
-								<button  ng-disabled="formulaire2.device3.$invalid" ng-click="backVersion()" style="width:100%" class="w3-btn w3-ripple w3-green w3-btn w3-round-large">Valider</button>
-							</form>-->
+
 						</div>
 
 					</div2>
