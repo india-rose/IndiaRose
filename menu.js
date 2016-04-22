@@ -50,6 +50,7 @@ app.controller('param', function($scope,$http) {
 
 	$scope.version=function(){
 		$scope.deviceSettings='';
+		$scope.policeName='';
 		var req = {
 			method: 'GET',
 			url: API+'/api/v1/settings/all',
@@ -69,6 +70,7 @@ app.controller('param', function($scope,$http) {
 
 	$scope.afficherVersion=function(){
 		$scope.deviceSettings='';
+		$scope.policeName='';
 		var req = {
 			method: 'GET',
 			url: API+'/api/v1/settings/get/'+$scope.device2,
@@ -81,6 +83,7 @@ app.controller('param', function($scope,$http) {
 		$http(req).success(function(data, status){
 			$scope.deviceInfo=data.Content;
 			$scope.deviceSettings= JSON.parse(data.Content.Settings);
+			$scope.policeName=$scope.deviceSettings.FontName.substring(14); //   /systems/fonts/  =14
 		}).error(function(status){
 			alert(status.Message);
 		});
@@ -136,6 +139,13 @@ app.controller('param', function($scope,$http) {
 	$scope.collectionf=function(){
 		$scope.collection=!$scope.collection;
 		$scope.parametres=false;
+	};
+});
+
+//filtre qui renvoi true ou false avec un input = true ou 'true'
+app.filter('toBoolean', function() {
+	return function(input) {
+		return input === true || input === 'true';
 	};
 });
 

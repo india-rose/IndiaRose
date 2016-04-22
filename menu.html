@@ -14,6 +14,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 	<script type="text/javascript" src="menu.js"></script> 
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> 
+
 </head>
 <body>
 	<hader>
@@ -88,7 +89,7 @@
 								<input type="button" value="set background" ng-click="myStyle={'color':'#'+deviceSettings.BottomBackgroundColor}">
 								<input type="button" value="set background" ng-click="myStyle={'color':'#'+deviceSettings.TextColor}">-->
 							</div>
-							<button type="button" class="btn btn-default btn-lg btn-block" ng-click="indiagramef()">Propri&eacute;t&eacute;s des indiagrames</button>
+							<button type="button" class="btn btn-primary btn-lg btn-block" ng-click="indiagramef()">Propri&eacute;t&eacute;s des indiagrames</button>
 							<div ng-hide="!indiagrame">
 								<label class="w3-label w3-text-blue">
 									<b>Taille des indiagrams : </b>
@@ -98,7 +99,7 @@
 								<label class="w3-label w3-text-blue">
 									<b>Police : </b>
 								</label>
-								{{deviceSettings.FontName}}
+								{{policeName}}
 								<br/>
 								<label class="w3-label w3-text-blue">
 									<b>Taille de la police : </b>
@@ -113,17 +114,17 @@
 								<label class="w3-label w3-text-blue">
 									<b>Revenir &agrave; l'acceuil apr&egrave;s la s&eacute;lection d'un indiagram : </b>
 								</label>
-								{{deviceSettings.IsBackHomeAfterSelectionEnabled}}
+								{{(deviceSettings.IsBackHomeAfterSelectionEnabled | toBoolean) ? 'oui' : 'non' }}
 								<br/>
 								<label class="w3-label w3-text-blue">
 									<b>Possibilit&eacute; de s&eacute;lectionner plusieurs fois le m&ecirc;me indiagram : </b>
 								</label>
-								{{deviceSettings.IsMultipleIndiagramSelectionEnabled}}
+								{{(deviceSettings.IsMultipleIndiagramSelectionEnabled | toBoolean) ? 'oui' : 'non' }}
 								<br/>
 								<label class="w3-label w3-text-blue">
-									<b>Activer le renfor&ccedil;ateur de lecture </b>
+									<b>Activer le renfor&ccedil;ateur de lecture : </b>
 								</label>
-								{{deviceSettings.IsReinforcerEnabled}} 
+								{{(deviceSettings.IsReinforcerEnabled | toBoolean) ? 'oui' : 'non' }}
 								<br/>
 								<label class="w3-label w3-text-blue">
 									<b>Renfor&ccedil;ateur couleur : </b>
@@ -136,12 +137,12 @@
 								<label class="w3-label w3-text-blue">
 									<b>Glisser-deposer : </b>
 								</label>
-								{{deviceSettings.IsDragAndDropEnabled}}
+								{{(deviceSettings.IsDragAndDropEnabled | toBoolean) ? 'oui' : 'non' }}
 								<br/>
 								<label class="w3-label w3-text-blue">
 									<b>Lire le nom des categories : </b>
 								</label>
-								{{deviceSettings.IsCategoryNameReadingEnabled}}
+								{{(deviceSettings.IsCategoryNameReadingEnabled | toBoolean) ? 'oui' : 'non' }}
 								<br/>
 								<label class="w3-label w3-text-blue">
 									<b>Le temps de silence entre les mots : </b>
