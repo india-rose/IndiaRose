@@ -15,52 +15,41 @@ if(localStorage.loginTMP!='' && localStorage.passwordTMP!=''){
 //les parametres
 app.controller('param', function($scope,$http) {
 	$scope.propriete=false;
-
+	$scope.indiagrame=false;
+	$scope.reinitialiser=false;
+	$scope.otpion=false;
 	$scope.parametres=false;
 	$scope.collection=false;
-	$scope.reinitialiser=false;
-	$scope.lectureMots=false;
-	$scope.slide=5;  
-	$scope.lectureCat=false;
-
-
-
-	$scope.collectionf=function(){
-		$scope.collection=!$scope.collection;
-		$scope.parametres=false;
-		$scope.propriete=false;
-	};
 
 	$scope.prorietef=function(){
 		$scope.propriete=!$scope.propriete;
-		$scope.lectureMots=false;
-		$scope.lectureCat=false;
 		$scope.reinitialiser=false;
+		$scope.indiagrame=false;
+		$scope.option=false;
 	}
 
-
+	$scope.indiagramef=function(){
+		$scope.indiagrame=!$scope.indiagrame;
+		$scope.reinitialiser=false;
+		$scope.propriete=false;
+		$scope.option=false;
+	}
 
 	$scope.reinitialiserf=function(){
 		$scope.reinitialiser=!$scope.reinitialiser;
-		$scope.lectureMots=false;
-		$scope.lectureCat=false;
 		$scope.propriete=false;
+		$scope.indiagrame=false;
+		$scope.option=false;
 	};
-	$scope.lectureMotsf=function(){
-		$scope.lectureMots=!$scope.lectureMots;
+	$scope.optionf=function(){
+		$scope.option=!$scope.option;
 		$scope.reinitialiser=false;
-		$scope.lectureCat=false;
 		$scope.propriete=false;
+		$scope.indiagrame=false;
 	};
-	$scope.lectureCatf=function(){
-		$scope.lectureCat=!$scope.lectureCat;
-		$scope.reinitialiser=false;
-		$scope.lectureMots=false;
-		$scope.propriete=false;
-	};
-
 
 	$scope.version=function(){
+		$scope.deviceSettings='';
 		var req = {
 			method: 'GET',
 			url: API+'/api/v1/settings/all',
@@ -79,6 +68,7 @@ app.controller('param', function($scope,$http) {
 	};
 
 	$scope.afficherVersion=function(){
+		$scope.deviceSettings='';
 		var req = {
 			method: 'GET',
 			url: API+'/api/v1/settings/get/'+$scope.device2,
@@ -142,4 +132,11 @@ app.controller('param', function($scope,$http) {
 			alert(status.Message);
 		});
 	};
+
+	$scope.collectionf=function(){
+		$scope.collection=!$scope.collection;
+		$scope.parametres=false;
+	};
 });
+
+

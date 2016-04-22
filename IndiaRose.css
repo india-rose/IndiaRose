@@ -83,6 +83,10 @@ img.floatR{
 	float:right;
 }
 
+img.floatL{
+	float:left;
+}
+
 
 
 
@@ -139,13 +143,14 @@ li.dropdown {
 
 
 div {
-	transition: all linear 0.5s;
+	transition: all linear 1.5s;
 	background-color: lightblue;
 	height: 100%;
 	width: 100%;
 	position: relative;
 	top: 0;
 	left: 0;
+	padding: 10px;
 }
 
 .ng-hide {
