@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr">
 <head>
-	<title>La TodoList, le retour</title>
+	<title>MENU</title>
 	<meta http-equiv="Content-Type" content="text/html;utf-8" />
 	<meta name="viewport" content="width=device-width"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -39,7 +39,7 @@
 					<center>
 						<p>choisissez votre p&eacute;riph&eacute;rique :</p>
 						<div2 class="styled-select" >
-							<select ng-model="device" ng-Change="version()">
+							<select ng-model="device" ng-Change="version();versionC()">
 								<option ng-repeat="x in dat" value="{{x.Name}}" >{{x.Name}}</option>
 							</select>
 						</div2>
@@ -56,7 +56,7 @@
 							<br/>
 						</form>
 						<center>
-							<p>choisissez la version :</p>
+							<p>choisissez la version des param&egrave;tres :</p>
 							<div2 class="styled-select">
 								<select ng-model="device2" ng-change="afficherVersion()">
 									<option ng-repeat="x in dat2" value="{{x.Version}}" >{{x.Version}}</option>
@@ -84,7 +84,7 @@
 										<img type="image" src="transparent.png"  width="100%" height="100%" ng-style=" {'background-color':'#'+deviceSettings.BottomBackgroundColor}"/>
 									</div2>
 									<div2  style="position:absolute; width:40%; height:60%; z-index:2">
-									<img type="image" src="transparent.png"  width="100%" height="{{deviceSettings.SelectionAreaHeight}}%" ng-style=" {'background-color':'#'+deviceSettings.TopBackgroundColor}"/>
+										<img type="image" src="transparent.png"  width="100%" height="{{deviceSettings.SelectionAreaHeight}}%" ng-style=" {'background-color':'#'+deviceSettings.TopBackgroundColor}"/>
 									</div2>
 									<div2  style="position:absolute; width:40%;  height:60%; z-index:3">
 										<img type="image"  src="bkgTablettes.png"  width="100%" height="100%" >
@@ -98,6 +98,12 @@
 									<b>Taille des indiagrams : </b>
 								</label>
 								{{deviceSettings.IndiagramDisplaySize}}*{{deviceSettings.IndiagramDisplaySize}}
+								<br/>
+								<label class="w3-label w3-text-blue">
+									<b>Couleur du renfor&ccedil;ateur : </b>
+								</label>
+								<img type="image"  src="transparent.png"  width="40px" height="20px" ng-style=" {'background-color':'#'+deviceSettings.ReinforcerColor}" >
+								<img type="image"  src="reinforcer.png"  class="floatR" width="20%" height="20%" ng-style=" {'background-color':'#'+deviceSettings.ReinforcerColor}" >
 								<br/>
 								<label class="w3-label w3-text-blue">
 									<b>Police : </b>
@@ -129,11 +135,7 @@
 								</label>
 								{{(deviceSettings.IsReinforcerEnabled | toBoolean) ? 'oui' : 'non' }}
 								<br/>
-								<label class="w3-label w3-text-blue">
-									<b>Renfor&ccedil;ateur couleur : </b>
-								</label>
-								<center><img type="image"  src="reinforcer.png"   width="20%" height="20%" ng-style=" {'background-color':'#'+deviceSettings.ReinforcerColor}" ></center>
-								<br/>
+								
 							</div>
 							<button type="button" class="btn btn-primary btn-lg btn-block" ng-click="optionf()">Options</button>
 							<div ng-hide="!option">
@@ -160,16 +162,42 @@
 									<button  ng-click="" style="width:49%" class="w3-btn w3-ripple w3-green w3-btn w3-round-large">Ok</button>
 								</div>
 							</div>
-
 						</div>
-
 					</div2>
 				</div2>
 			</div2> 
 			<div2 ng-hide="!collection"><center><h2><b>Gestion de la collection</b></h2></center>
-
-
-
+				<div ng-hide="data1">
+					<center>
+						Vous devez avoir un p&eacute;riph&eacute;rique avec l'application India Rose dessus pour pouvoir acceder &agrave; cette partie du site.
+					</center>
+				</div>
+				<div2 ng-hide="!data1">
+					<center>
+						<p>choisissez votre p&eacute;riph&eacute;rique :</p>
+						<div2 class="styled-select" >
+							<select ng-model="device" ng-Change="versionC();version()">
+								<option ng-repeat="x in dat" value="{{x.Name}}" >{{x.Name}}</option>
+							</select>
+						</div2>
+					</center>
+					<br/>
+					<div2 ng-hide="device==null">
+						<center>
+							<p>choisissez la version de la collection :</p>
+							<div2 class="styled-select">
+								<select ng-model="versionCollection" ng-change="afficherVersionC(); afficherArbre()">
+									<option ng-repeat="x in datC" value="{{x.Version}}" >{{x.Version}}</option>
+								</select>
+							</div2>
+							<div ng-hide="versionCollection==null">
+								<b>Date : </b>	{{dateCollection.Date | date:'yyyy/MM/dd HH:mm:ss'}}
+								<br/>
+								{{merde}}
+							</div>
+						</center>
+					</div2>
+				</div2>
 			</div2>
 		</div2>
 	</div2>

@@ -79,6 +79,11 @@ img, table, td, blockquote, code, pre, textarea, input, iframe, object, embed, v
 
 * {-moz-box-sizing: border-box; box-sizing: border-box;}
 
+
+
+
+
+
 *.floatR{
 	float:right;
 }
@@ -86,6 +91,8 @@ img, table, td, blockquote, code, pre, textarea, input, iframe, object, embed, v
 *.floatL{
 	float:left;
 }
+
+
 
 
 

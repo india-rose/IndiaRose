@@ -48,6 +48,23 @@ app.controller('param', function($scope,$http) {
 		$scope.indiagrame=false;
 	};
 
+
+	$scope.parametresf=function(){
+		$scope.parametres=!$scope.parametres;
+		$scope.collection=false;
+		if($scope.dat==null || $scope.dat==''){
+			$scope.versionD();
+		};
+	};
+
+	$scope.collectionf=function(){
+		$scope.collection=!$scope.collection;
+		$scope.parametres=false;
+		if($scope.dat==null || $scope.dat==''){
+			$scope.versionD();
+		};
+	};
+
 	$scope.version=function(){
 		$scope.deviceSettings='';
 		$scope.policeName='';
@@ -89,6 +106,28 @@ app.controller('param', function($scope,$http) {
 		});
 	};
 
+	$scope.afficherVersionC=function(){
+		var req = {
+			method: 'GET',
+			url: API+'/api/v1/versions/all',
+			headers: {
+				'x-indiarose-login': sessionStorage.login,
+				'x-indiarose-password':sessionStorage.password,
+				'x-indiarose-device': $scope.device
+			}, 
+		};
+		$http(req).success(function(data, status){
+			for(var i in data.Content){
+				if(data.Content[i].Version==$scope.versionCollection){
+					$scope.dateCollection=data.Content[i];
+				};
+			};
+		}).error(function(status){
+			alert(status.Message);
+		});
+	};
+
+
 	$scope.changeNomD=function(champ1){
 		sessionStorage.device=$scope.device;
 		var json = {
@@ -112,9 +151,7 @@ app.controller('param', function($scope,$http) {
 		});
 	};
 
-	$scope.parametresf=function(){
-		$scope.parametres=!$scope.parametres;
-		$scope.collection=false;
+	$scope.versionD=function(){
 		var req = {
 			method: 'GET',
 			url: API+'/api/v1/devices/list',
@@ -136,10 +173,56 @@ app.controller('param', function($scope,$http) {
 		});
 	};
 
-	$scope.collectionf=function(){
-		$scope.collection=!$scope.collection;
-		$scope.parametres=false;
+	$scope.versionC=function(){
+		var req = {
+			method: 'GET',
+			url: API+'/api/v1/versions/all',
+			headers: {
+				'x-indiarose-login': sessionStorage.login,
+				'x-indiarose-password':sessionStorage.password,
+				'x-indiarose-device': $scope.device
+			}, 
+		};
+		$http(req).success(function(data, status){
+			if(data.Content==''){
+				$scope.datC={'Version':''};   
+				$scope.dataC=false;
+			}else{
+				$scope.dataC=true;
+				$scope.datC=data.Content;
+			};
+		}).error(function(status){
+			alert(status.Message);
+		});
 	};
+
+
+
+
+
+	$scope.afficherArbre=function(){
+		var req = {
+			method: 'GET',
+			url: API+'/api/v1/collection/all/'+$scope.versionCollection,
+			headers: {
+				'x-indiarose-login': sessionStorage.login,
+				'x-indiarose-password':sessionStorage.password,
+				'x-indiarose-device': $scope.device
+			}, 
+		};
+		$http(req).success(function(data, status){
+			$scope.merde=data.Content;
+		}).error(function(status){
+			alert(status.Message);
+		});
+
+
+
+
+	};
+
+
+
 });
 
 //filtre qui renvoi true ou false avec un input = true ou 'true'
