@@ -193,7 +193,21 @@
 							<div ng-hide="versionCollection==null">
 								<b>Date : </b>	{{dateCollection.Date | date:'yyyy/MM/dd HH:mm:ss'}}
 								<br/>
-								{{merde}}
+								
+								<ul>
+							<!--	{{dataCollection}} -->
+								{{image}}    
+									<li ng-repeat="x in dataCollection">
+									
+										<a href="#" ><img data-ng-src="{{getImage(x.DatabaseId)}}" width="30%" height="20%"  />{{x.Text}}</a> 
+									</li>
+								</ul>
+
+
+
+
+
+
 							</div>
 						</center>
 					</div2>

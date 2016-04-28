@@ -12,6 +12,12 @@ if(localStorage.loginTMP!='' && localStorage.passwordTMP!=''){
 	localStorage.passwordTMP='';
 };
 
+
+if(sessionStorage.login==null){
+	alert("vous avez \351t\351 d\351connect\351");
+	window.location='pageDeConnection.html';
+};
+
 //les parametres
 app.controller('param', function($scope,$http) {
 	$scope.propriete=false;
@@ -211,17 +217,48 @@ app.controller('param', function($scope,$http) {
 			}, 
 		};
 		$http(req).success(function(data, status){
-			$scope.merde=data.Content;
+			$scope.dataCollection=data.Content;
+			$scope.image();
+
 		}).error(function(status){
 			alert(status.Message);
 		});
+	};
 
-
-
-
+	$scope.image=function(){
+		for(var x in $scope.dataCollection){
+			if($scope.dataCollection[x].HasImage==true){
+				var req = {
+					method: 'GET',
+					url: API+'/api/v1/collection/images/'+$scope.dataCollection[x].DatabaseId+'/'+$scope.versionCollection,
+					headers: {
+						'x-indiarose-login': sessionStorage.login,
+						'x-indiarose-password':sessionStorage.password,
+						'x-indiarose-device': $scope.device
+					}, 
+				};
+				$http(req).success(function(data, status){
+					sessionStorage.provisoire= data.Content.Content;
+				}).error(function(status){
+					alert(status.Message);
+					return null;
+				}); 
+			}else{
+				x++;
+			};
+			sessionStorage['ind'+$scope.dataCollection[x].DatabaseId]=sessionStorage.provisoire;
+		};
 	};
 
 
+
+	$scope.getImage = function(champ){
+		if (sessionStorage['ind'+champ]==''){
+			return 'rouge1.png';
+		}else{
+			return 'data:image/jpeg;base64,' + sessionStorage['ind'+champ];
+		};
+	};
 
 });
 
