@@ -89,6 +89,7 @@ app.controller('param', function($scope,$http) {
 			alert(status.Message);
 		});
 		$scope.device2=null;
+		$scope.versionCollection=null;
 	};
 
 	$scope.afficherVersion=function(){
@@ -225,28 +226,31 @@ app.controller('param', function($scope,$http) {
 		});
 	};
 
+	$scope.ImageZ=function(x){
+		var req = {
+			method: 'GET',
+			url: API+'/api/v1/collection/images/'+$scope.dataCollection[x].DatabaseId+'/'+$scope.versionCollection,
+			headers: {
+				'x-indiarose-login': sessionStorage.login,
+				'x-indiarose-password':sessionStorage.password,
+				'x-indiarose-device': $scope.device
+			}, 
+		};
+		$http(req).success(function(data, status){
+			sessionStorage['ind'+$scope.dataCollection[x].DatabaseId]=data.Content.Content;
+		}).error(function(status){
+			alert(status.Message);
+			return null;
+		}); 
+	};
+
 	$scope.image=function(){
 		for(var x in $scope.dataCollection){
 			if($scope.dataCollection[x].HasImage==true){
-				var req = {
-					method: 'GET',
-					url: API+'/api/v1/collection/images/'+$scope.dataCollection[x].DatabaseId+'/'+$scope.versionCollection,
-					headers: {
-						'x-indiarose-login': sessionStorage.login,
-						'x-indiarose-password':sessionStorage.password,
-						'x-indiarose-device': $scope.device
-					}, 
-				};
-				$http(req).success(function(data, status){
-					sessionStorage.provisoire= data.Content.Content;
-				}).error(function(status){
-					alert(status.Message);
-					return null;
-				}); 
+				$scope.ImageZ(x);
 			}else{
-				x++;
+				sessionStorage['ind'+$scope.dataCollection[x].DatabaseId]='';
 			};
-			sessionStorage['ind'+$scope.dataCollection[x].DatabaseId]=sessionStorage.provisoire;
 		};
 	};
 
@@ -259,7 +263,6 @@ app.controller('param', function($scope,$http) {
 			return 'data:image/jpeg;base64,' + sessionStorage['ind'+champ];
 		};
 	};
-
 });
 
 //filtre qui renvoi true ou false avec un input = true ou 'true'
@@ -270,3 +273,28 @@ app.filter('toBoolean', function() {
 });
 
 
+
+
+
+
+var handleFileSelect = function(evt) {
+    var files = evt.target.files;
+    var file = files[0];
+
+    if (files && file) {
+        var reader = new FileReader();
+
+        reader.onload = function(readerEvt) {
+            var binaryString = readerEvt.target.result;
+            document.getElementById("base64textarea").value = btoa(binaryString);
+        };
+
+        reader.readAsBinaryString(file);
+    }
+};
+
+if (window.File && window.FileReader && window.FileList && window.Blob) {
+    document.getElementById('filePicker').addEventListener('change', handleFileSelect, false);
+} else {
+    alert('The File APIs are not fully supported in this browser.');
+}

@@ -185,31 +185,37 @@
 					<div2 ng-hide="device==null">
 						<center>
 							<p>choisissez la version de la collection :</p>
-							<div2 class="styled-select">
+						</center>
+						<div2 class="styled-select">
+							<center>
 								<select ng-model="versionCollection" ng-change="afficherVersionC(); afficherArbre()">
 									<option ng-repeat="x in datC" value="{{x.Version}}" >{{x.Version}}</option>
 								</select>
-							</div2>
-							<div ng-hide="versionCollection==null">
+							</center>
+						</div2>
+						<div ng-hide="!versionCollection">
+							<center>
 								<b>Date : </b>	{{dateCollection.Date | date:'yyyy/MM/dd HH:mm:ss'}}
 								<br/>
-								
-								<ul>
-							<!--	{{dataCollection}} -->
+							</center>
+							<ul2 ng-hide="false">
+								<!--	{{dataCollection}} -->
 								{{image}}    
-									<li ng-repeat="x in dataCollection">
-									
-										<a href="#" ><img data-ng-src="{{getImage(x.DatabaseId)}}" width="30%" height="20%"  />{{x.Text}}</a> 
-									</li>
-								</ul>
+								<li2 ng-repeat="x in dataCollection">
+									<a href="#" ><img data-ng-src="{{getImage(x.DatabaseId)}}" width="15%" height="20%"  />{{x.Text}}</a> 
+								</li2>
+							</ul2>
+						</div>
 
 
+{{IMG}}
+    <div>
+        <label for="filePicker">Choose or drag a file:</label><br>
+        <input type="file" id="filePicker" ng-model="inputIMG">
+    </div>
+ 
 
 
-
-
-							</div>
-						</center>
 					</div2>
 				</div2>
 			</div2>

@@ -98,7 +98,7 @@ img, table, td, blockquote, code, pre, textarea, input, iframe, object, embed, v
 
 
 
-ul {
+ul2 {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -106,7 +106,7 @@ ul {
 	background-color: #f1f1f1;
 }
 
-li a {
+li2 a {
 	background-color: grey;
 	display: block;
 	color: #000;
@@ -115,7 +115,7 @@ li a {
 }
 
 /* Change the link color on hover */
-li a:hover {
+li2 a:hover {
 	background-color: #555;
 	color: white;
 }
