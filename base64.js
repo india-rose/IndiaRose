@@ -1,1 +1,0 @@
-alert(window.btoa("Hello, world"));

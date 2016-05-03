@@ -79,6 +79,16 @@ img, table, td, blockquote, code, pre, textarea, input, iframe, object, embed, v
 
 * {-moz-box-sizing: border-box; box-sizing: border-box;}
 
+@media screen and (max-width: 480px) {
+	p{
+		font-size: 18px;
+	}
+	img{
+		max‐width: 100%;
+		min-width: 20%;
+	}
+
+}
 
 
 
