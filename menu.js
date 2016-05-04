@@ -241,9 +241,26 @@ $scope.image=function(){
 		}else{
 			sessionStorage['ind'+$scope.dataCollection[x].DatabaseId]='';
 		};
+		if($scope.dataCollection[x].Children!=''){
+			$scope.ImageFils($scope.dataCollection[x].Children);
+		};
 	};
 };
 
+//avoir image des fils
+$scope.ImageFils = function(champ){
+	for(var i in champ){
+		if(champ[i].Children!=''){
+			$scope.ImageFils(champ[i].Children);
+		}else{
+			if(champ[i].HasImage==true){
+				$scope.ImageZ(i);
+			}else{
+				sessionStorage['ind'+champ[i].DatabaseId]='';
+			};
+		};
+	};
+};
 
 //pouvoir afficher le son grace au src
 $scope.getSound = function(champ){
@@ -262,6 +279,29 @@ $scope.getImage = function(champ){
 	};
 };
 
+//avoir les fils de l india selectionner
+$scope.avoirIndia=function(champ){
+	for(var i in $scope.dataCollection){
+		if(champ==$scope.dataCollection[i].DatabaseId /*&& $scope.dataCollection[i].Children!=''*/){
+			$scope.nomPere=$scope.dataCollection[i].Text;
+			$scope.dataCollectionFilsChoisi=$scope.dataCollection[i];
+		}else{
+			$scope.recherche(champ,$scope.dataCollection[i].Children);
+		};
+	};
+};
+
+//parcoure la branche du fils
+$scope.recherche=function(champ,champ2){
+	for(var i in champ2){
+		if(champ==champ2[i].DatabaseId  && champ2[i].Children!=''){
+			$scope.nomPere=champ2[i].Text;
+			$scope.dataCollectionFilsChoisi=champ2[i];
+		}else{
+			$scope.recherche(champ,champ2[i].Children);
+		};
+	};
+};
 
 /*
 
@@ -298,7 +338,13 @@ app.filter('toBoolean', function() {
 });
 
 
+/*
+app.controller('param', function($scope,$http) {
 
+
+});
+
+*/
 
 
 
