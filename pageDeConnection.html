@@ -29,7 +29,7 @@
   </ul>
 </nav>-->
 <hader>
-<center><img src="icon_0.png"/></center>
+	<center><img src="icon_0.png"/></center>
 </hader>
 <div2 ng-app="myApp"> 
 	<div2 ng-controller="connection">
@@ -73,7 +73,6 @@
 				<span ng-show="formulaire2.email.$error.required">Email requis</span>
 				<span ng-show="formulaire2.email.$error.email">Invalide email</span>
 			</span>
-
 			<br/>
 			<button  ng-click="reset()" style="width:49%" class="w3-btn w3-ripple w3-red w3-btn w3-round-large">effacer</button>
 			<button ng-disabled="formulaire2.login2.$invalid || formulaire2.password2.$invalid || formulaire2.email.$invalid" ng-click="save(login,email,password)" style="width:49%" class="w3-btn w3-ripple w3-green w3-btn w3-round-large">creer</button>

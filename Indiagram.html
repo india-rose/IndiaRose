@@ -13,48 +13,56 @@
 	<link rel="stylesheet" type="text/css" href="IndiaRose.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 	<script type="text/javascript" src="menu.js"></script> 
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> 
-
 </head>
 <body>
 	<div2 ng-app="myApp"> 
 		<div2 ng-controller="Indiagram">
 			{{afficherArbre()}}
-			<div ng-hide="!afficher">
+			<div2 ng-hide="!afficher">
+				<br/>
 				<center>
 					<a><img data-ng-src="{{getImage()}}" width="8%"/>&nbsp;</a>
 				</center>
 				<br/>
 				<center>
+					<audio controls>
+						<source data-ng-src="{{getSounds()}}" />
+						Your browser does not support the audio element.
+					</audio>
+				</center>
+				<center>
 					<label class="w3-label w3-text-blue">
-						<p>{{resultat.Text}}s</p>
+						<p>{{resultat.Text}}</p>
 					</label>
 				</center>
-				<br/>
-				<p>est-ce une category : {{(resultat.IsCategory | toBoolean) ? 'oui' : 'non' }}</p>
-				
-
-				<div>
-					<label for="filePicker">changer l image :</label><br>
-					<input type="file" id="filePicker">
-				</div>
-				<div>
-					<label for="filePicker">changer le son MP3 :</label><br>
+				<label class="w3-label w3-text-blue">
+					<p>Nom de l indiagram : </p>
+				</label>
+				<input name="nomIndia" type="text" class="w3-input w3-border w3-round w3-hover-grey" ng-model="nomIndia" />
+				<label class="w3-label w3-text-blue">
+					<p>est-ce une categorie : </p>
+				</label>
+				<input type="checkbox" ng-model="categoryOUI" ng-change="changementCategoryOUI()">Oui<br/>
+				<input type="checkbox" ng-model="categoryNON" ng-change="changementCategoryNON()">Non<br/>
+				<div2>
+					<label for="filePicker"><label class="w3-label w3-text-blue"><p>changer l image :</p></label></label>
+					<input type="file" id="filePicker"><br/>
+					<label for="filePicker"><label class="w3-label w3-text-blue"><p>changer le son MP3 :</p></label></label>
 					<input type="file" id="filePicker2">
-				</div>
-				<div>
+				</div2>
+				<br/>
+				<br/>
+				<button ng-click="changement()" style="width:100%" class="w3-btn w3-ripple w3-green w3-btn w3-round-large">Sauvegarder</button>
+		<!--		<div>
 					<h1>Base64 Image</h1>
 					<textarea id="base64textarea" placeholder="Base64 will appear here" cols="10" rows="10"></textarea>
-				</div>
-				<div>
 					<h1>Base64 mp3</h1>
 					<textarea id="base64textarea2" placeholder="Base64 will appear here" cols="10" rows="10"></textarea>
-				</div>
-
-
-			</div>
+				</div> -->
+			<!--	<a href="menu.html">ici</a>  -->
+			
+			</div2>
 		</div2>
 	</div2>
-
 </body>
 </html>
