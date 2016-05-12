@@ -233,9 +233,18 @@
 										</label>
 									</center>
 									<label class="w3-label w3-text-blue">
+										<p>Position de l indiagram : </p>
+									</label>
+									<br/>
+									<p>{{IndiagramOption.Position}}</p>
+									<label class="w3-label w3-text-blue">
 										<p>est-ce une categorie : </p>
 									</label>
 									<p>{{(IndiagramOption.IsCategory | toBoolean) ? 'oui' : 'non' }}</p>
+									<label class="w3-label w3-text-blue">
+										<p>est-elle activ&eacute;e : </p>
+									</label>
+									<p>{{(IndiagramOption.IsEnabled | toBoolean) ? 'oui' : 'non' }}</p>
 								</div2>
 								<br/>
 								<button style="width:100%" class="w3-btn w3-ripple w3-green w3-btn w3-round-large" ng-click="modifierCollection()" >&#9998; modifier la derniere collection</button>

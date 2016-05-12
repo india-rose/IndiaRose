@@ -414,29 +414,40 @@ var API='http://indiarose.azurewebsites.net/';
 		$scope.arbreCollection=function(){
 			if($scope.afficher==false){
 				$scope.afficher=true;
-				if(sessionStorage.close=="true" || sessionStorage.close==null){
-			//cree une new version
-		}else{
-			// cree pas de  new version 
-		};
-		var req = {
-			method: 'GET',
-			url: API+'/api/v1/collection/all/'+sessionStorage.VersionFinal,
-			headers: {
-				'x-indiarose-login': sessionStorage.login,
-				'x-indiarose-password':sessionStorage.password,
-				'x-indiarose-device': sessionStorage.device
-			}, 
-		};
-		$http(req).success(function(data, status){
-			$scope.dataCollection=data.Content;
-			$scope.image();
+				if(localStorage.close==true || localStorage.close=="true" || localStorage.close==null){
+					localStorage.close=false;
+					var req = {
+						method: 'POST',
+						url: API+'/api/v1/versions/create',
+						headers: {
+							'x-indiarose-login': sessionStorage.login,
+							'x-indiarose-password':sessionStorage.password,
+							'x-indiarose-device': sessionStorage.device
+						}, 
+					};
+					$http(req).success(function(data, status){
+					}).error(function(status){
+						alert(status.Message);
+					});
+				};
+				var req = {
+					method: 'GET',
+					url: API+'/api/v1/collection/all/'+sessionStorage.VersionFinal,
+					headers: {
+						'x-indiarose-login': sessionStorage.login,
+						'x-indiarose-password':sessionStorage.password,
+						'x-indiarose-device': sessionStorage.device
+					}, 
+				};
+				$http(req).success(function(data, status){
+					$scope.dataCollection=data.Content;
+					$scope.image();
 
-		}).error(function(status){
-			alert(status.Message);
-		});
-	};
-};
+				}).error(function(status){
+					alert(status.Message);
+				});
+			};
+		};
 
 	//avoir les images d une collection
 	$scope.ImageZ=function(x){
@@ -550,14 +561,20 @@ var API='http://indiarose.azurewebsites.net/';
 
 		//affiche les options de l indigram selectionner
 		$scope.option=function(champ){
+			$scope.ajouterIndiagram=false;
 			$scope.nomIndia=champ.Text;
 			$scope.india=champ;
 			$scope.optionIndia=true;
 			$scope.categoryOUI=champ.IsCategory;
 			$scope.categoryNON=!champ.IsCategory;
-
+			$scope.categoryOUI1=champ.IsEnabled;
+			$scope.categoryNON1=!champ.IsEnabled;
+			$scope.positionIndia=champ.Position;
+			$scope.nomImage="Nom de l image";
+			$scope.nomMusique="Nom de la musique";
 		};
 
+		//special checkbox
 		$scope.changementCategoryOUI=function(){
 			$scope.categoryOUI=true;
 			$scope.categoryNON=false;
@@ -565,6 +582,14 @@ var API='http://indiarose.azurewebsites.net/';
 		$scope.changementCategoryNON=function(){
 			$scope.categoryNON=true;
 			$scope.categoryOUI=false;
+		};
+		$scope.changementCategoryOUI1=function(){
+			$scope.categoryOUI1=true;
+			$scope.categoryNON1=false;
+		};
+		$scope.changementCategoryNON1=function(){
+			$scope.categoryNON1=true;
+			$scope.categoryOUI1=false;
 		};
 
 		//transformation d un fichier en base64
@@ -575,7 +600,7 @@ var API='http://indiarose.azurewebsites.net/';
 				var reader = new FileReader();
 				reader.onload = function(readerEvt) {
 					var binaryString = readerEvt.target.result;
-					document.getElementById("base64textarea").value = btoa(binaryString);
+					$scope.ImageBASE = (btoa(binaryString));
 				};
 				reader.readAsBinaryString(file);
 			}
@@ -588,7 +613,7 @@ var API='http://indiarose.azurewebsites.net/';
 				var reader = new FileReader();
 				reader.onload = function(readerEvt) {
 					var binaryString = readerEvt.target.result;
-					document.getElementById("base64textarea2").value = btoa(binaryString);
+					$scope.MusiqueBASE=(btoa(binaryString));
 				};
 				reader.readAsBinaryString(file);
 			}
@@ -600,6 +625,135 @@ var API='http://indiarose.azurewebsites.net/';
 		} else {
 			alert('The File APIs are not fully supported in this browser.');
 		}
+
+		//fermer la version 
+		$scope.save=function(){
+			var req = {
+				method: 'POST',
+				url: API+'/api/v1/versions/close/'+(parseInt(sessionStorage.VersionFinal)+1),
+				headers: {
+					'x-indiarose-login': sessionStorage.login,
+					'x-indiarose-password':sessionStorage.password,
+					'x-indiarose-device': sessionStorage.device
+				}, 
+			};
+			$http(req).success(function(data, status){
+				localStorage.close=true;
+				window.location="menu.html";
+			}).error(function(status){
+				alert(status.Message);
+			});
+		};
+
+		//modifie l indiagram
+		$scope.modifierIndia=function(champ){
+			$scope.ajouterIndiagram=false;
+			var json={
+				"Id": champ.DatabaseId,
+				"Version": (parseInt(sessionStorage.VersionFinal)+1),
+				"Text": $scope.nomIndia,
+				"ParentId": champ.ParentId,
+				"Position": $scope.positionIndia,
+				"IsEnabled": $scope.categoryOUI1,
+				"IsCategory": $scope.categoryOUI
+			};
+			var req = {
+				method: 'POST',
+				url: API+'/api/v1/collection/indiagrams/update',
+				headers: {
+					'x-indiarose-login': sessionStorage.login,
+					'x-indiarose-password':sessionStorage.password,
+					'x-indiarose-device': sessionStorage.device
+				}, 
+				data:json
+			};
+			$http(req).success(function(data, status){
+				$scope.optionIndia=false;
+			}).error(function(status){
+				alert(status.Message);
+			});
+			if($scope.ImageBASE!=null){
+				var json={
+					"Filename": $scope.nomImage,
+					"Content": $scope.ImageBASE,
+				};
+				var req = {
+					method: 'POST',
+					url: API+'/api/v1/collection/images/'+champ.DatabaseId+'/'+(parseInt(sessionStorage.VersionFinal)+1),
+					headers: {
+						'x-indiarose-login': sessionStorage.login,
+						'x-indiarose-password':sessionStorage.password,
+						'x-indiarose-device': sessionStorage.device
+					}, 
+					data:json
+				};
+				$http(req).success(function(data, status){
+				}).error(function(status){
+					alert(status.Message);
+				});
+			};
+			if($scope.MusiqueBASE!=null){
+				var json={
+					"Filename": $scope.nomMusique,
+					"Content": $scope.MusiqueBASE,
+				};
+				var req = {
+					method: 'POST',
+					url: API+'/api/v1/collection/sounds/'+champ.DatabaseId+'/'+(parseInt(sessionStorage.VersionFinal)+1),
+					headers: {
+						'x-indiarose-login': sessionStorage.login,
+						'x-indiarose-password':sessionStorage.password,
+						'x-indiarose-device': sessionStorage.device
+					}, 
+					data:json
+				};
+				$http(req).success(function(data, status){
+				}).error(function(status){
+					alert(status.Message);
+				});
+			};
+		};
+
+		//new india save
+		$scope.saveNewIndia=function(){
+			var json={
+				"Id": -1,
+				"Version": (parseInt(sessionStorage.VersionFinal)+1),
+				"Text": $scope.nomIndia2,
+				"ParentId": $scope.IdParent,
+				"Position": 0,
+				"IsEnabled": false,
+				"IsCategory": false
+			};
+			var req = {
+				method: 'POST',
+				url: API+'/api/v1/collection/indiagrams/update',
+				headers: {
+					'x-indiarose-login': sessionStorage.login,
+					'x-indiarose-password':sessionStorage.password,
+					'x-indiarose-device': sessionStorage.device
+				}, 
+				data:json
+			};
+			$http(req).success(function(data, status){
+				$scope.ajouterIndiagram=false;
+			}).error(function(status){
+				alert(status.Message);
+			});
+		};
+
+		//ajouter une indiagram
+		$scope.AjouterIndia=function(champ){
+			if(champ==null){
+				$scope.IdParent=-1;
+			} else {
+				$scope.IdParent=champ;
+			};
+			$scope.optionIndia=false;
+			$scope.ajouterIndiagram=true;
+		};
+
+
 	});
 
 

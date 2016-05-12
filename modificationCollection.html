@@ -44,41 +44,68 @@
 				</table>
 				<br>
 			</div2>
-			<div2 ng-hide="!optionIndia">
+			<div ng-hide="!optionIndia">
 				ID/{{india.DatabaseId}}
-				<center><h3><b>Information de l indiagram</b></h3></center>
-				<center>
-					<a><img data-ng-src="{{getImage(india.DatabaseId)}}" width="8%"/>&nbsp;</a>
-				</center>
-				<br/>
-				<center>
-					<audio controls>
-						<source data-ng-src="{{getSounds(india.DatabaseId)}}" />
-						Your browser does not support the audio element.
-					</audio>
-				</center>
-				<center>
-					<label class="w3-label w3-text-blue">
-						<p>Nom de l indiagram : </p>
-					</label>
-					<input name="nomIndia" type="text" class="w3-input w3-border w3-round w3-hover-grey" ng-model="nomIndia" />
-				</center>
-				<label class="w3-label w3-text-blue">
-					<p>est-ce une categorie : </p>
-				</label>
-				<input type="checkbox" ng-model="categoryOUI" ng-change="changementCategoryOUI()">Oui<br/>
-				<input type="checkbox" ng-model="categoryNON" ng-change="changementCategoryNON()">Non<br/>
-				<div2>
-					<label for="filePicker"><label class="w3-label w3-text-blue"><p>changer l image :</p></label></label>
-					<input type="file" id="filePicker"><br/>
-					<label for="filePicker"><label class="w3-label w3-text-blue"><p>changer le son MP3 :</p></label></label>
-					<input type="file" id="filePicker2">
+				<form class="w3-container" name="formulaire">
+					<center><h3><b>Information de l indiagram</b></h3></center>
+					<center>
+						<a><img data-ng-src="{{getImage(india.DatabaseId)}}" width="8%"/>&nbsp;</a>
+					</center>
 					<br/>
-				</div2>
-				<button style="width:100%" class="w3-btn w3-ripple w3-green w3-btn w3-round-large" ng-click="AjouterIndia()" >&#9998; Ajouter une Indiagram a {{nomIndia}}</button>
-				<button ng-click="changement()" style="width:100%" class="w3-btn w3-ripple w3-green w3-btn w3-round-large">Sauvegarder</button>
-				<br/>
-			</div2>
+					<center>
+						<audio controls>
+							<source data-ng-src="{{getSounds(india.DatabaseId)}}" />
+							Your browser does not support the audio element.
+						</audio>
+					</center>
+					<center>
+						<label class="w3-label w3-text-blue">
+							<p>Nom de l indiagram : </p>
+						</label>
+						<input name="nomIndia" type="text" class="w3-input w3-border w3-round w3-hover-grey" ng-model="nomIndia" required>
+					</center>
+					<label class="w3-label w3-text-blue">
+						<p>Position de l indiagram : </p>
+					</label>
+					<input name="positionIndia" type="number" class="w3-input w3-border w3-round w3-hover-grey" ng-model="positionIndia" required>
+					<label class="w3-label w3-text-blue">
+						<p>est-ce une categorie : </p>
+					</label>
+					<input type="checkbox" ng-model="categoryOUI" ng-change="changementCategoryOUI()">Oui<br/>
+					<input type="checkbox" ng-model="categoryNON" ng-change="changementCategoryNON()">Non<br/>
+					<label class="w3-label w3-text-blue">
+						<p>est-elle activ&eacute; : </p>
+					</label>
+					<input type="checkbox" ng-model="categoryOUI1" ng-change="changementCategoryOUI1()">Oui<br/>
+					<input type="checkbox" ng-model="categoryNON1" ng-change="changementCategoryNON1()">Non<br/>
+					<div2>
+						<label for="filePicker"><label class="w3-label w3-text-blue"><p>changer l image :</p></label></label>
+						<input type="file" id="filePicker">
+						<input type="text" class="w3-input w3-border w3-round w3-hover-grey" ng-model="nomImage" required><br/>
+						<label for="filePicker"><label class="w3-label w3-text-blue"><p>changer le son MP3 :</p></label></label>
+						<input type="file" id="filePicker2" name="f2">
+						<input type="text" class="w3-input w3-border w3-round w3-hover-grey" ng-model="nomMusique" required>
+						<br/>
+					</div2>
+					<button style="width:100%" class="w3-btn w3-ripple w3-green w3-btn w3-round-large" ng-click="AjouterIndia(india.DatabaseId)" >&#9998; Ajouter une Indiagram a {{nomIndia}}</button>
+					<br/>
+					<button style="width:100%" ng-disabled="formulaire.nomIndia.$invalid || formulaire.positionIndia.$invalid" class="w3-btn w3-ripple w3-green w3-btn w3-round-large" ng-click="modifierIndia(india)" >Appliquer les modifications</button>
+					<br/>
+				</form>
+			</div>
+			<div ng-hide="!ajouterIndiagram">
+				<form class="w3-container" name="formulaire2">
+					<center>
+						<label class="w3-label w3-text-blue">
+							<p>Nom du nouveau indiagram : </p>
+						</label>
+						<input name="nomIndia2" type="text" class="w3-input w3-border w3-round w3-hover-grey" ng-model="nomIndia2" required>
+					</center>
+					<button ng-disabled="formulaire2.nomIndia2.$invalid " ng-click="saveNewIndia()" style="width:100%" class="w3-btn w3-ripple w3-green w3-btn w3-round-large">Sauvegarder</button>
+				</form>
+			</div>
+			<br/>
+			<button ng-click="save()" style="width:100%" class="w3-btn w3-ripple w3-green w3-btn w3-round-large">Sauvegarder</button>
 		</div2>
 	</div2>
 </body>
