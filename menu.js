@@ -339,7 +339,7 @@ var API='http://indiarose.azurewebsites.net/';
 		//avoir les fils de l india selectionner
 		$scope.avoirIndia=function(champ){
 			for(var i in $scope.dataCollection){
-				if(champ==$scope.dataCollection[i].DatabaseId /*&& $scope.dataCollection[i].Children!=''*/){
+				if(champ==$scope.dataCollection[i].DatabaseId){
 					$scope.nomPere=$scope.dataCollection[i].Text;
 					$scope.dataCollectionFilsChoisi=$scope.dataCollection[i];
 				}else{
@@ -387,15 +387,6 @@ var API='http://indiarose.azurewebsites.net/';
 			window.location="modificationCollection.html";
 			sessionStorage.device=$scope.device;
 		};
-
-	/*	$scope.option=function(champ){
-		window.location="Indiagram.html";
-		localStorage.IndiagramId=champ;
-		localStorage.versionCollection=$scope.versionCollection;
-		localStorage.device=$scope.device;
-	};*/
-
-
 });
 
 
@@ -538,7 +529,7 @@ var API='http://indiarose.azurewebsites.net/';
 		//avoir les fils de l india selectionner
 		$scope.avoirIndia=function(champ){
 			for(var i in $scope.dataCollection){
-				if(champ==$scope.dataCollection[i].DatabaseId /*&& $scope.dataCollection[i].Children!=''*/){
+				if(champ==$scope.dataCollection[i].DatabaseId){
 					$scope.nomPere=$scope.dataCollection[i].Text;
 					$scope.dataCollectionFilsChoisi=$scope.dataCollection[i];
 				}else{
@@ -758,20 +749,6 @@ var API='http://indiarose.azurewebsites.net/';
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	//filtre qui renvoi true ou false avec un input = true ou 'true'
 	app.filter('toBoolean', function() {
 		return function(input) {
@@ -779,222 +756,4 @@ var API='http://indiarose.azurewebsites.net/';
 		};
 	});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-
-
-
-	app.controller('Indiagram', function($scope,$http) {
-		$scope.DatabaseId=localStorage.IndiagramId;
-		$scope.versionCollection=localStorage.versionCollection;
-		$scope.device=localStorage.device;
-		$scope.afficher=false;
-
-		//avoir l image grace au src
-		$scope.getImage = function(){
-			if(sessionStorage.editImage==''){
-				return 'rouge1.png';
-			} else{
-				return 'data:image/jpeg;base64,' + sessionStorage.editImage;
-			};
-		};
-
-		//pouvoir afficher le son grace au src
-		$scope.getSounds = function(champ){
-			$scope.donc=sessionStorage.editSounds;
-			if (sessionStorage.editSounds==''){
-				return '';
-			}else{
-				return 'data:audio/mp3;base64,' + sessionStorage.editSounds;
-			};
-		};
-
-		//avoir le son d un indiagram
-		$scope.MusiqueZ=function(){
-			var req = {
-				method: 'GET',
-				url: API+'/api/v1/collection/sounds/'+$scope.resultat.DatabaseId+'/'+$scope.versionCollection,
-				headers: {
-					'x-indiarose-login': sessionStorage.login,
-					'x-indiarose-password':sessionStorage.password,
-					'x-indiarose-device': $scope.device
-				}, 
-			};
-			$http(req).success(function(data, status){
-				sessionStorage.editSounds=data.Content.Content;
-			}).error(function(status){
-				alert(status.Message);
-				return null;
-			}); 
-		};
-
-		//avoir le images de l indiagram
-		$scope.ImageZ=function(){
-			var req = {
-				method: 'GET',
-				url: API+'/api/v1/collection/images/'+$scope.resultat.DatabaseId+'/'+$scope.versionCollection,
-				headers: {
-					'x-indiarose-login': sessionStorage.login,
-					'x-indiarose-password':sessionStorage.password,
-					'x-indiarose-device': $scope.device
-				}, 
-			};
-			$http(req).success(function(data, status){
-				sessionStorage.editImage=data.Content.Content;
-			}).error(function(status){
-				alert(status.Message);
-				return null;
-			}); 
-		};
-
-		//avoir toutes les collection d un device 
-		$scope.afficherArbre=function(){
-			if($scope.afficher==false){
-				$scope.afficher=true;
-				var req = {
-					method: 'GET',
-					url: API+'/api/v1/collection/all/'+$scope.versionCollection,
-					headers: {
-						'x-indiarose-login': sessionStorage.login,
-						'x-indiarose-password':sessionStorage.password,
-						'x-indiarose-device': $scope.device
-					}, 
-				};
-				$http(req).success(function(data, status){
-					for(var x in data.Content){
-						if(data.Content[x].Children!=''){
-							$scope.rechercher(data.Content[x].Children);
-						};
-						if(data.Content[x].DatabaseId==$scope.DatabaseId){
-							$scope.resultat=data.Content[x];
-							$scope.categoryOUI=$scope.resultat.IsCategory;
-							$scope.categoryNON=!$scope.categoryOUI;
-							$scope.nomIndia=$scope.resultat.Text;
-							if($scope.resultat.HasImage==true){
-								$scope.ImageZ();
-							}else{
-								sessionStorage.editImage='';
-							};
-							if($scope.resultat.HasSound==true){
-								$scope.MusiqueZ();
-							} else {
-								sessionStorage.editSounds='';
-							};
-						};
-					};
-				}).error(function(status){
-					alert(status.Message);
-				});
-			};
-		};
-
-		//rechercher dans les fils 
-		$scope.rechercher=function(champ){
-			for(var x in champ){
-				if(champ[x].Children!=''){
-					$scope.rechercher(champ[x].Children);
-				};
-				if(champ[x].DatabaseId==$scope.DatabaseId){
-					$scope.resultat=champ[x];
-					$scope.categoryOUI=$scope.resultat.IsCategory;
-					$scope.categoryNON=!$scope.categoryOUI;
-					$scope.nomIndia=$scope.resultat.Text;
-					if($scope.resultat.HasImage==true){
-						$scope.ImageZ();
-					}else{
-						sessionStorage.editImage='';
-					};
-					if($scope.resultat.HasSound==true){
-						$scope.MusiqueZ();
-					} else {
-						sessionStorage.editSounds='';
-					};
-				};
-			};
-
-		};
-
-		//transformation d un fichier en base64
-		var handleFileSelect = function(evt) {
-			var files = evt.target.files;
-			var file = files[0];
-			if (files && file) {
-				var reader = new FileReader();
-				reader.onload = function(readerEvt) {
-					var binaryString = readerEvt.target.result;
-					document.getElementById("base64textarea").value = btoa(binaryString);
-				};
-				reader.readAsBinaryString(file);
-			}
-		};
-
-		var handleFileSelect2 = function(evt) {
-			var files = evt.target.files;
-			var file = files[0];
-			if (files && file) {
-				var reader = new FileReader();
-				reader.onload = function(readerEvt) {
-					var binaryString = readerEvt.target.result;
-					document.getElementById("base64textarea2").value = btoa(binaryString);
-				};
-				reader.readAsBinaryString(file);
-			}
-		};
-
-		if (window.File && window.FileReader && window.FileList && window.Blob) {
-			document.getElementById('filePicker').addEventListener('change', handleFileSelect, false);
-			document.getElementById('filePicker2').addEventListener('change', handleFileSelect2, false);
-		} else {
-			alert('The File APIs are not fully supported in this browser.');
-		}
-
-
-		$scope.changementCategoryOUI=function(){
-			$scope.categoryOUI=true;
-			$scope.categoryNON=false;
-		};
-		$scope.changementCategoryNON=function(){
-			$scope.categoryNON=true;
-			$scope.categoryOUI=false;
-		};
-
-	});*/
 

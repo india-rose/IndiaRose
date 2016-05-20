@@ -1,7 +1,6 @@
 body {
 	background-color: white ;
-	min-width: 320px;  /*tel*/
-	/*	color : red;*/
+	min-width: 320px;
 }
 
 h1 {
@@ -35,7 +34,6 @@ html {
 }
 
 body {
-	/*	display : table; */
 	min-height: 100%;
 	margin: 0;
 	padding: 0;
