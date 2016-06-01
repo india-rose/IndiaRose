@@ -68,16 +68,16 @@ app.controller('enregistrer', function($scope,$http) {
 	};
 	$scope.save = function(champ1,champ2,champ3){
 		localStorage.password==false;
-		champ2= sha256_digest(champ2).toString();
+		champ3= sha256_digest(champ3).toString();
 		var json = {
-			"login": champ1,
-			"email" : champ2,
-			"password": champ3
+			"Login": champ1,
+			"Email" : champ2,
+			"Password": champ3
 		};
 		$http.post(API+"/api/v1/users/register", json).success(function(data, status) {
 			if(data.HasError==false){
 				localStorage.loginTMP=champ1;
-				localStorage.passwordTMP=champ2;
+				localStorage.passwordTMP=champ3;
 				window.location='menu.html';
 			}else{
 				alert(data.ErrorMessage);

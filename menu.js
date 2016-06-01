@@ -713,7 +713,7 @@ var API='http://indiarose.azurewebsites.net/';
 				"Text": $scope.nomIndia2,
 				"ParentId": $scope.IdParent,
 				"Position": 0,
-				"IsEnabled": false,
+				"IsEnabled": true,
 				"IsCategory": false
 			};
 			var req = {

@@ -71,7 +71,7 @@ input.ng-valid {
 	background-color:lightgreen;
 }
 
-img, table, td, blockquote, code, pre, textarea, input, iframe, object, embed, video {  /*tel*/
+img, table, td, blockquote, code, pre, textarea, input, iframe, object, embed, video {  
 	max‐width: 100%;
 }
 
