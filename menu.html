@@ -195,7 +195,7 @@
 								<table class="w3-table w3-bordered ">
 									<tr ng-repeat="x in dataCollection">
 										<td>
-											<button class="w3-btn w3-ripple w3-purple" ng-click="option(x)" > Voir <!--ID/{{x.DatabaseId}}--></button>
+											<button class="w3-btn w3-ripple w3-purple" ng-click="option(x)" > Voir </button>
 										</td>
 										<td><a ng-click="avoirIndia(x.DatabaseId)"><img data-ng-src="{{getImage(x.DatabaseId)}}" width="8%"/>&nbsp;{{x.Text}}</a> </td>
 										<table class="w3-table w3-bordered">
@@ -204,7 +204,7 @@
 											</tr>
 											<tr ng-repeat="y in dataCollectionFilsChoisi.Children">
 												<td>
-													<button class="w3-btn w3-ripple w3-purple" ng-click="option(y)" >Voir <!--ID/{{y.DatabaseId}}--></button>
+													<button class="w3-btn w3-ripple w3-purple" ng-click="option(y)" >Voir </button>
 												</td>
 												<td><a ng-click="avoirIndia(y.DatabaseId)"><img data-ng-src="{{getImage(y.DatabaseId)}}" width="8%"/>&nbsp;{{y.Text}}</a> </td>
 												<tr>
@@ -216,7 +216,6 @@
 								<br>
 								<div2 ng-hide="!optinIndia">
 									<center><h3><b>Information de l indiagram</b></h3></center>
-								<!--	ID/{{IndiagramOption.DatabaseId}}  -->
 									<center>
 										<a><img data-ng-src="{{getImage2(IMAGE)}}" width="8%"/>&nbsp;</a>
 									</center>

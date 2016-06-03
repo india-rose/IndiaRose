@@ -614,7 +614,7 @@ var API='http://indiarose.azurewebsites.net/';
 			document.getElementById('filePicker').addEventListener('change', handleFileSelect, false);
 			document.getElementById('filePicker2').addEventListener('change', handleFileSelect2, false);
 		} else {
-			alert('The File APIs are not fully supported in this browser.');
+			alert('la transformation de votre fichier en base64 n\' est pas accept\351 par votre navigateur.');
 		}
 
 		//fermer la version 
